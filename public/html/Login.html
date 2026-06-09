@@ -42,17 +42,17 @@
 <main class="form-signin">
   <div class="card shadow p-4">
     <div class="card-body">
-        <form>
+    <form onsubmit="login(event)">
     <h3><i style="color: purple;" class="bi bi-heart-fill"> </i>Wedding Pass</h3>
     <p class="mb-3 fw-normal">Please sign in</p>
 
     <div class="form-floating">
-      <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
+      <input type="email" class="form-control" id="mailInput" placeholder="name@example.com">
       <label for="floatingInput">Email address</label>
     </div>
     <br>
     <div class="form-floating">
-      <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
+      <input type="password" class="form-control" id="passwordInput" placeholder="Password">
       <label for="floatingPassword">Password</label>
     </div>
 
@@ -65,6 +65,6 @@
 </main>
 
 
-    
+    <script src="../js/login.js"></script>
   </body>
 </html>
