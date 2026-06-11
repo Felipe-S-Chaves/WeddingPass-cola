@@ -6,6 +6,6 @@ if (!token) {
 
     alert("Faça login");
 
-    window.location.href = "../html/Login.html";
+    window.location.replace("../html/Login.html");
 
 }

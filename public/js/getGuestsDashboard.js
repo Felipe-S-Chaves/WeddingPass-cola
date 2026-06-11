@@ -30,11 +30,18 @@ async function getData() {
             divConvidado.innerHTML = `
             <tr>
                   <td>${convidado.id}</td>
-                  <td>${convidado.first_name}</td>
-                  <td>${convidado.last_name}</td>
+                  <td>${convidado.first_name + " " +convidado.last_name}</td>
                   <td>${convidado.mail}</td>
+                  <td>${convidado.phone}</td>
                   <td>${convidado.table_number}</td>
-                  <td>${convidado.check_ed}</td>
+                  <td>
+                    ${convidado.check_ed == 1 ? `<button class="btn btn-success" disabled>
+                                Check-in realizado
+                            </button>`: `<button class="btn btn-primary check-in-btn" data-id="${convidado.id}">
+                                Realizar Check-in
+                            </button>`
+                                    }
+                    </td>
                   <td>
                     <button type="button" class="btn btn-sm btn-warning" data-bs-toggle="modal"
                       data-bs-target="#exampleModal">Edit</button>

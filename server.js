@@ -128,8 +128,8 @@ app.get("/guests/:id", authenticateToken, authorizeRoles(["admin", "recepcionist
 });
 
 // post
-app.post("/guests", authenticateToken, authorizeRoles(["admin"]), (req, res) => {
-    const { first_name, last_name, cpf, mail, table_number , check_ed} = req.body
+app.post("/guests", authenticateToken, authorizeRoles(["admin", "recepcionist"]), (req, res) => {
+    const { first_name, last_name, cpf, mail, table_number, check_ed } = req.body
     db.query("INSERT INTO guests (first_name, last_name, cpf, mail, table_number) VALUES (?,?,?,?,?)",
         [first_name, last_name, cpf, mail, table_number, check_ed], (err, results) => {
             if (err) {
@@ -147,7 +147,7 @@ app.post("/guests", authenticateToken, authorizeRoles(["admin"]), (req, res) => 
 // put
 app.put("/guests/:id", authenticateToken, authorizeRoles(["admin"]), (req, res) => {
     const { id } = req.params
-    const { first_name, last_name, cpf, mail, table_number , check_ed } = req.body
+    const { first_name, last_name, cpf, mail, table_number, check_ed } = req.body
     db.query("UPDATE guests SET first_name = ?, last_name = ?, cpf = ?, mail = ?, table_number = ? WHERE id = ?",
         [first_name, last_name, cpf, mail, table_number, check_ed, id], (err, results) => {
             if (err) {
@@ -164,7 +164,7 @@ app.put("/guests/:id", authenticateToken, authorizeRoles(["admin"]), (req, res) 
 
 
 // delete
-app.delete("/guests/:id", authenticateToken, authorizeRoles(["admin", "recepcionist"]), (req, res) => {
+app.delete("/guests/:id", authenticateToken, authorizeRoles(["admin"]), (req, res) => {
 
     const { id } = req.params
 
@@ -185,5 +185,5 @@ app.delete("/guests/:id", authenticateToken, authorizeRoles(["admin", "recepcion
 
 // inicialização do servidor
 app.listen(3000, () => {
-    console.log (`http://localhost:3000/`)
+    console.log(`http://localhost:3000/`)
 })
