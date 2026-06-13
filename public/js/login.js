@@ -1,56 +1,44 @@
-// Realiza login do usuário
+// =============================================
+// LOGIN DO USUÁRIO
+// =============================================
 async function login(event) {
-
-    // impede submit padrão do formulário
+    // Impede o comportamento padrão do formulário (recarregar a página)
     event.preventDefault();
 
-    const inputmail = document.getElementById("mailInput").value;
-    const inputpassword = document.getElementById("passwordInput").value;
+    const mail = document.getElementById("mailInput").value;
+    const password = document.getElementById("passwordInput").value;
+
+    if (!mail || !password) {
+        alert("Preencha o email e a senha.");
+        return;
+    }
 
     try {
-
         const response = await fetch("http://localhost:3000/login", {
-
             method: "POST",
-
-            headers: {
-                "Content-Type": "application/json"
-            },
-
-            body: JSON.stringify({
-                mail: inputmail,
-                password: inputpassword
-            })
-
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ mail, password })
         });
 
         const data = await response.json();
 
         if (!response.ok) {
-            alert(data.message);
+            alert(data.message); // Mostra o erro real do servidor
             return;
         }
 
-        // salva token
+        // Salva as informações do usuário no localStorage
         localStorage.setItem("token", data.token);
-
-        // salva role
         localStorage.setItem("role", data.role);
-
-        // salva nome
         localStorage.setItem("full_name", data.full_name);
 
-        // redireciona
+        // BUG CORRIGIDO: O alert vinha DEPOIS do redirect, nunca aparecia.
+        // Agora o redirect vem depois.
+        alert("Bem-vindo, " + data.full_name + "!");
         window.location.replace("../html/Dashboard.html");
 
-        alert(data.full_name, "logado")
-
     } catch (error) {
-
-        console.error(error);
-
-        alert("Erro ao conectar com servidor");
-
+        console.error("Erro de rede:", error);
+        alert("Erro ao conectar com o servidor.");
     }
-
 }
